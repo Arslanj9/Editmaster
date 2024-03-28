@@ -1,0 +1,45 @@
+/* Home.css */
+
+.home-container {
+    max-width: 600px;
+    margin: 50px auto;
+    text-align: center;
+  }
+  
+  .welcome-header {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .intro-text {
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  
+  .auth-links {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .auth-link {
+    padding: 10px 20px;
+    font-size: 12px;
+    margin: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #3498db;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .auth-link:hover {
+    background-color: #2980b9;
+  }
+  
+  .divider {
+    font-size: 16px;
+    line-height: 30px;
+    color: #777;
+  }
+  

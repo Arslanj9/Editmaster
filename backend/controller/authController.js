@@ -1,0 +1,228 @@
+const express = require('express');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
+const passport = require('passport');
+const nodemailer = require('nodemailer');
+require('dotenv').config();
+
+const router = express.Router();
+
+// Register a new user
+router.post('/register', async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create a new user
+    const newUser = new User({
+      name,
+      email,
+      password: hashedPassword,
+    });
+
+    // Save the user to the database
+    await newUser.save();
+
+    res.status(201).json({ message: 'User registered successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
+// Login
+router.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    const token = jwt.sign({ userId: user._id, role: user.role }, 'your-secret-key', {
+      expiresIn: '1h', 
+    });
+
+    res.json({ token, userId: user._id, role: user.role });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
+// Forgot Password - Generate and send reset token via email
+router.post('/forgot-password', async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Find the user in the database
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Generate reset token
+    const resetToken = jwt.sign({ userId: user._id }, 'your-reset-secret-key', {
+      expiresIn: '1h', // Token expiration time
+    });
+
+    // Construct the reset link with the token
+    const resetLink = `http://your-app-domain/reset-password?token=${resetToken}`;
+
+    // Send reset link via email
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.GMAIL_EMAIL,
+        pass: process.env.GMAIL_APP_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: 'your-email@gmail.com',
+      to: email,
+      subject: 'Password Reset',
+      text: `Click the following link to reset your password: ${resetLink}`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.json({ message: 'Password reset link sent to your email' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
+
+
+// Reset Password
+router.post('/reset-password', async (req, res) => {
+  try {
+    const { resetToken, newPassword } = req.body;
+
+    // Verify reset token
+    const decodedToken = jwt.verify(resetToken, 'your-reset-secret-key');
+    const userId = decodedToken.userId;
+
+    // Find the user in the database
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update the user's password
+    user.password = hashedPassword;
+    await user.save();
+
+    res.json({ message: 'Password reset successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
+
+// Initialize passport
+router.use(passport.initialize());
+
+// Passport Facebook Strategy
+// You need to set up Facebook Developer App and obtain App ID and App Secret
+const FacebookStrategy = require('passport-facebook').Strategy;
+passport.use(new FacebookStrategy({
+  clientID: process.env.FACEBOOK_CLIENTID,
+  clientSecret: process.env.FACEBOOK_CLIENTSECRET,
+  callbackURL: 'http://localhost:3000/api/auth/facebook/callback',
+}, async (accessToken, refreshToken, profile, done) => {
+  // Find or create a user based on the Facebook profile
+  const user = await User.findOne({ email: profile.emails[0].value });
+  if (user) {
+    return done(null, user);
+  } else {
+    // Create a new user with Facebook profile data
+    const newUser = new User({
+      name: profile.displayName,
+      email: profile.emails[0].value,
+      password: '', // Social login doesn't require a password
+    });
+
+    await newUser.save();
+    return done(null, newUser);
+  }
+}));
+
+// Facebook authentication route
+router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }));
+
+// Facebook authentication callback route
+router.get('/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/' }),
+  (req, res) => {
+    // Redirect to the frontend URL after successful login
+    res.redirect('http://localhost:3000/dashboard');
+  }
+);
+
+
+
+
+// Passport Google Strategy
+// You need to set up Google Developer Console and obtain Client ID and Client Secret
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENTID,
+  clientSecret: process.env.GOOGLE_CLIENTSECRET,
+  callbackURL: 'http://localhost:5000/api/auth/google/callback',
+}, async (accessToken, refreshToken, profile, done) => {
+  // Find or create a user based on the Google profile
+  const user = await User.findOne({ email: profile.emails[0].value });
+  if (user) {
+    return done(null, user);
+  } else {
+    // Create a new user with Google profile data
+    const newUser = new User({
+      name: profile.displayName,
+      email: profile.emails[0].value,
+      password: '', // Social login doesn't require a password
+    });
+
+    await newUser.save();
+    return done(null, newUser);
+  }
+}));
+
+// Google authentication route
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+// Google authentication callback route
+router.get('/google/callback',
+  passport.authenticate('google', { failureRedirect: '/' }),
+  (req, res) => {
+    // Redirect to the frontend URL after successful login
+    res.redirect('http://localhost:3000/dashboard');
+  }
+);
+
+module.exports = router;

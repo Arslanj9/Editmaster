@@ -1,0 +1,53 @@
+.dashboard-container {
+    max-width: 600px;
+    margin: 50px auto;
+    text-align: center;
+  }
+  
+  .upload-section {
+    margin: 30px 0;
+  }
+  
+  .upload-section div {
+    margin-bottom: 20px;
+  }
+
+  .upload-section div input {
+    margin: 20px 0;
+    width: 300px;
+    /* background-color: #db3434; */
+  }
+
+  .upload-section h3 {
+    background-color: #3498db;
+    color: white;
+    padding-top: 20px;
+    border-radius: 20px;
+  }
+
+  .upload-section div {
+    background-color: #3498db;
+    border-radius: 20px;
+  }
+
+
+  .admin-section {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .view-users-btn {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .view-users-btn:hover {
+    background-color: #2980b9;
+  }
+  
