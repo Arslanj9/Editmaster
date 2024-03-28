@@ -1,8 +1,33 @@
-# React + Vite
+# Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend repository for the project.
 
-Currently, two official plugins are available:
+## Functional Requirements
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Users can register using email or social media accounts.
+- Users must be able to log in securely and have a password recovery mechanism.
+- Users can upload PDF documents and images for editing.
+- PDF tools should include features like text editing, annotation, merging, splitting, and page rotation.
+- Photo editing tools should include features like cropping, resizing, adding text or images, filters, background removing, and basic retouching.
+- Users can save both PDF and images.
+- Users can download PDFs and images.
+- Users can convert PDFs to image formats (e.g., JPG, PNG, etc.) and vice versa.
+- Users can save their edited PDFs and images to cloud storage services like Google Drive or Dropbox.
+- Users can collaborate on PDF and photo editing projects, including sharing and real-time collaboration features.
+- Users can view and manage their uploaded documents, edited files, and project history.
+- Users will get options for personalized profiles.
+- Users will get push notifications regarding updates and promotional efforts.
+
+## Installation and Setup
+
+1. Clone this repository.
+2. Navigate to the project directory.
+3. Run `npm install` to install dependencies.
+4. Run `npm run dev` to start the development server.
+
+## Technologies Used
+
+- React
+- React Router (for routing)
+- Axios (for HTTP requests)
+- pdftron (for pdf manipulation)
