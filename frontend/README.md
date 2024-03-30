@@ -23,7 +23,9 @@ This is the frontend repository for the project.
 1. Clone this repository.
 2. Navigate to the project directory.
 3. Run `npm install` to install dependencies.
-4. Run `npm run dev` to start the development server.
+4. Copy the folders 'core' and 'ui' from 'node_modules/@pdftron/webviewer/public' and then create a folder 'public/lib' and paste 'core' and 'ui' inside that. 
+5. Run `npm run dev` to start the development server.
+
 
 ## Technologies Used
 
