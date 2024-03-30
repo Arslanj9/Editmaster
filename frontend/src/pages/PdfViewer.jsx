@@ -1,19 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import WebViewer from '@pdftron/webviewer';
+import { PDFContext } from '../contexts/pdfContext';
 
 const PdfViewer = () => {
   const location = useLocation();
   const viewerRef = useRef(null);
   const webViewerInstanceRef = useRef(null);
   const cleanupInProgressRef = useRef(false);
-  const [selectedFile, setSelectedFile] = useState(null);
   const [webViewerInitialized, setWebViewerInitialized] = useState(false);
+
+  const { pdfData } = useContext(PDFContext)
+  
 
   useEffect(() => {
     const initializeWebViewer = async () => {
-      if (location?.state && selectedFile) { // Check if selectedFile exists
-        const pdfFile = selectedFile;
+      if (location?.state && pdfData) { // Check if selectedFile exists
+        const pdfFile = pdfData;
   
         if (viewerRef.current && !webViewerInitialized) {
           if (cleanupInProgressRef.current) {
@@ -37,7 +40,6 @@ const PdfViewer = () => {
           ).then(instance => {
             instance.UI.loadDocument(pdfFile);
             setWebViewerInitialized(true);
-            console.log(`This is inside clg: ${pdfFile}`)
           }).catch(error => {
             console.error('Error initializing WebViewer:', error);
           });
@@ -54,20 +56,13 @@ const PdfViewer = () => {
         webViewerInstanceRef.current.closeReader();
       }
     };
-  }, [location, selectedFile]); // Add selectedFile as a dependency
+  }, [location, pdfData]); // Add selectedFile as a dependency
   
-
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setSelectedFile(file);
-  };
 
 
   return (
     <>
       <div ref={viewerRef} style={{ width: '100%', height: '100vh' }}></div>
-      <input type="file" onChange={handleFileChange} accept=".pdf" />
     </>
 
   ) 

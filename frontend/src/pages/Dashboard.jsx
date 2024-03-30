@@ -1,22 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { PDFContext } from '../contexts/pdfContext'
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css'; 
 
 const Dashboard = ({ user, isAdmin }) => {
 
   const [picture, setPicture] = useState(null);
-  const [pdf, setPdf] = useState(null);
+  // const [pdf, setPdf] = useState(null);
   const navigate = useNavigate();
 
-  const handlePictureUpload = (e) => {
+  const addPicture = (e) => {
     const file = e.target.files[0];
     setPicture(file);
   };
 
 
-  const handlePdfUpload = (e) => {
+  const {handlePDFUpload} = useContext(PDFContext)
+
+  const addPDF = (e) => {
     const file = e.target.files[0];
-    setPdf(file);
+    handlePDFUpload(file);
+
 
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -40,14 +44,14 @@ const Dashboard = ({ user, isAdmin }) => {
       <div className="upload-section">
         <div className='upload-picture'>
           <h3>Upload Picture</h3>
-          <input type="file" accept="image/*" onChange={handlePictureUpload} />
+          <input type="file" accept="image/*" onChange={addPicture} />
           {picture && <p>Picture uploaded: {picture.name}</p>}
         </div>
 
         <div className='upload-pdf'>
           <h3>Upload PDF</h3>
-          <input type="file" accept=".pdf" onChange={handlePdfUpload} />
-          {pdf && <p>PDF uploaded: {pdf.name}</p>}
+          <input type="file" accept=".pdf" onChange={addPDF} />
+          {/* {pdf && <p>PDF uploaded: {pdf.name}</p>} */}
         </div>
       </div>
 
