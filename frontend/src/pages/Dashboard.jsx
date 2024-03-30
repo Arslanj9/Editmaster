@@ -35,7 +35,7 @@ const Dashboard = ({ user, isAdmin }) => {
 
       <div className="upload-section">
         <div className='upload-picture'>
-          <h3>Upload Picture</h3>
+          <h3>Uploa Picture</h3>
           <input type="file" accept="image/*" onChange={handlePictureUpload} />
           {picture && <p>Picture uploaded: {picture.name}</p>}
         </div>
