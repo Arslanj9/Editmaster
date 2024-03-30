@@ -28,6 +28,7 @@ function App() {
             element={<Dashboard user={user} />}
           />
           <Route path='/pdfViewer' element={<PdfViewer />} />
+          
           {/* Additional routes for admin and user roles */}
           <Route
             path='/dashboard/admin'

@@ -5,10 +5,12 @@ import './UserList.css';
 const UserList = () => {
   const [users, setUsers] = useState([]);
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getAllUsers();
+        const token = localStorage.getItem('token');
+        const response = await getAllUsers(token);
         setUsers(response);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -17,6 +19,7 @@ const UserList = () => {
 
     fetchData();
   }, []);
+
 
   return (
     <div className="user-list-container">

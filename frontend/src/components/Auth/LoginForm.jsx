@@ -4,6 +4,7 @@ import { loginUser } from '../../utils/api';
 import './LoginForm.css'; 
 
 const LoginForm = () => {
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -11,16 +12,16 @@ const LoginForm = () => {
   });
   const [error, setError] = useState(null);
 
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await loginUser(formData);
-
       if (response && response.data) {
         const { role } = response.data;
 
@@ -39,6 +40,7 @@ const LoginForm = () => {
       setError('Invalid credentials. Please try again.');
     }
   };
+
 
   return (
     <div className="login-container">

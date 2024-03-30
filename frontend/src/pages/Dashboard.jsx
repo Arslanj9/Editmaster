@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Dashboard.css'; 
 
 const Dashboard = ({ user, isAdmin }) => {
+
   const [picture, setPicture] = useState(null);
   const [pdf, setPdf] = useState(null);
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ const Dashboard = ({ user, isAdmin }) => {
     const file = e.target.files[0];
     setPicture(file);
   };
+
 
   const handlePdfUpload = (e) => {
     const file = e.target.files[0];
@@ -24,11 +26,13 @@ const Dashboard = ({ user, isAdmin }) => {
     reader.readAsDataURL(file);
   };
 
+
   const handleViewAllUsers = () => {
     // Redirect to the "user-list" route
     navigate('/user-list');
   };
 
+  
   return (
     <div className="dashboard-container">
       <h2>Welcome to the Dashboard!</h2>
