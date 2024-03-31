@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { PDFContext } from '../contexts/pdfContext'
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/common/Header';
 import './Dashboard.css'; 
 
 const Dashboard = ({ user, isAdmin }) => {
 
   const [picture, setPicture] = useState(null);
-  // const [pdf, setPdf] = useState(null);
   const navigate = useNavigate();
 
   const addPicture = (e) => {
@@ -38,6 +38,8 @@ const Dashboard = ({ user, isAdmin }) => {
 
   
   return (
+    <>
+    <Header />
     <div className="dashboard-container">
       <h2>Welcome to the Dashboard!</h2>
 
@@ -65,6 +67,7 @@ const Dashboard = ({ user, isAdmin }) => {
         </div>
       )}
     </div>
+  </>
   );
 };
 

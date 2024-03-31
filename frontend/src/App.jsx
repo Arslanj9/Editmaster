@@ -7,6 +7,7 @@ import SocialLogin from './components/Auth/SocialLogin';
 import Dashboard from './pages/Dashboard';
 import PdfViewer from './pages/PdfViewer';
 import UserList from './pages/UserList';
+import Header from './components/common/Header';
 import PDFProvider from './contexts/pdfContext'
 import './App.css'
 
@@ -18,6 +19,7 @@ function App() {
       <PDFProvider>
         <Router>
           <Routes>
+  
             <Route path='/' element={<Home />} />
             <Route path='/register' element={<Register />} />
             <Route path='/socialLogin' element={<SocialLogin />} />
@@ -25,10 +27,11 @@ function App() {
             <Route path='/dashboard' element={<Dashboard user={user} />} />
             <Route path='/pdfViewer' element={<PdfViewer />} />
 
-            {/* Additional routes for admin and user roles */}
+            {/* ---- Additional routes for admin and user roles ---- */}
             <Route path='/dashboard/admin' element={<Dashboard user={user} isAdmin={true} />} />
             <Route path='/dashboard/user' element={<Dashboard user={user} isAdmin={false} />} />
             <Route path='/user-list' element={<UserList />} />
+  
           </Routes>
         </Router>
       </PDFProvider>      
