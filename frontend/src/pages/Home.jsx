@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './Home.css'; 
 
 const Home = () => {
+  
   const handleFacebookLogin = () => {
     // Redirect the user to the server route for Facebook authentication
     window.location.href = 'http://localhost:3000/api/auth/facebook';
@@ -17,6 +18,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <h2 className="welcome-header">Welcome to EditMaster, Your PDF and Image Editor</h2>
+      
       <p className="intro-text">Please create an account or log in to explore our features</p>
       <div className="auth-links">
         <Link to="/register" className="auth-link">Register</Link>
