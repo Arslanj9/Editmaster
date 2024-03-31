@@ -19,9 +19,9 @@ const Home = () => {
     <>
       <Header />
       <div className="home-container">
-        <h2 className="welcome-header">Welcome to EditMaster, Your PDF and Image Editor</h2>
+        <h2 className='fw-bold'>Welcome to EditMaster, Your PDF and Image Editor</h2>
         
-        <p className="intro-text">Please create an account or log in to explore our features</p>
+        <p>Please create an account or log in to explore our features</p>
         <div className='auth-links'>
           <button className="auth-link" onClick={handleFacebookLogin}>Login with Facebook</button>
           <button className="auth-link" onClick={handleGoogleLogin}>Login with Google</button>
