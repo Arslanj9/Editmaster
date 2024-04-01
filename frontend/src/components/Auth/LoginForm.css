@@ -40,3 +40,22 @@
     margin-top: 10px;
   }
   
+
+  .line-container {
+    position: relative;
+  }
+
+  .line {
+    width: 100%;
+    border-bottom: 1px solid black; /* Adjust line style as needed */
+  }
+
+  .text-inside {
+    position: absolute;
+    top: -10px; /* Adjust vertical position of text */
+    left: 50%; /* Adjust horizontal position of text */
+    transform: translateX(-50%);
+    font-size: 14px;
+    /* background-color: white; Adjust background color as needed */
+    padding: 0 10px; /* Adjust padding as needed */
+  }

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../utils/api';
+import google_icon from '../../../public/assets/google_icon.png'
+import facebook_icon from '../../../public/assets/facebook_icon.png'
 import './LoginForm.css'; 
 
 const LoginForm = () => {
@@ -48,37 +50,32 @@ const LoginForm = () => {
         <div className='d-flex flex-column vh-100 align-items-center justify-content-center'>
 
         <form className='container w-25 '>
-          
-          {/* <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-          <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" />
-            <label for="floatingInput">Email address</label>
+
+          <h4 class="mb-4 mt-1 fw-bold text-center">Sign in to your account</h4>
+
+          <input type="email" className="form-control mt-1" id="floatingInput" placeholder="Email"/>
+          <input type="password" className="form-control mt-1" id="floatingPassword" placeholder="Password"/>
+
+          <button type="submit" className='btn btn-outline-primary w-100 mt-3'>Login</button>
+          {error && <p className="error-message">{error}</p>}
+          <div className="line-container mt-4">
+            <div className="line"></div>
+            <div className="text-inside">or alternatively</div>
           </div>
-          <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" />
-            <label for="floatingPassword">Password</label>
-          </div>
 
-          <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button> */}
-{/* 
-          <div class="form-floating">
-           <input
-             type="email"
-             name="email"
-             value={formData.email}
-             onChange={handleChange}
-             placeholder='Email'
-             required
-           />
-          </div>
-         <br /> */}
 
-        <h4 class="mb-4 mt-1 fw-bold text-center">Signin to your account</h4>
-
-         <input type="email" className="form-control mt-1" id="floatingInput" placeholder="Email"/>
-         <input type="password" className="form-control mt-1" id="floatingPassword" placeholder="Password"/>
-
-         <button type="submit" className='btn btn-outline-primary w-100 mt-3'>Login</button>
+          <a className="btn btn-primary mt-4 w-100" style={{fontSize: "19px", backgroundColor: "transparent", borderColor: "#002440", color: "#00345c", }} href="#" role="button">
+            {/* <FontAwesomeIcon icon={faTwitter} className="me-2" /> */}
+            {/* <FontAwesomeIcon icon={faTwitter} /> */}
+            <img src={google_icon} style={{width: "23px"}} className='me-2 mb-1' alt="google icon" />
+            Sign in with Google
+          </a>
+          <a className="btn btn-primary mt-2 w-100" style={{fontSize: "19px", backgroundColor: "transparent", borderColor: "#002440", color: "#00345c", }} href="#" role="button">
+            {/* <FontAwesomeIcon icon={faTwitter} className="me-2" /> */}
+            {/* <FontAwesomeIcon icon={faTwitter} /> */}
+            <img src={facebook_icon} style={{width: "23px"}} className='me-2 mb-1' alt="google icon" />
+            Sign in with Facebook
+          </a>
         </form>
         </div>
       </main>  
