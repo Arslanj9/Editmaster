@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { PDFContext } from '../contexts/pdfContext'
+import { UserLoggedInContext } from '../contexts/userLoggedInContext';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/common/Header';
 import './Dashboard.css'; 
@@ -8,14 +9,14 @@ const Dashboard = ({ user, isAdmin }) => {
 
   const [picture, setPicture] = useState(null);
   const navigate = useNavigate();
+  const {handlePDFUpload} = useContext(PDFContext)
+  const {userLoggedIn} = useContext(UserLoggedInContext)
 
   const addPicture = (e) => {
     const file = e.target.files[0];
     setPicture(file);
   };
 
-
-  const {handlePDFUpload} = useContext(PDFContext)
 
   const addPDF = (e) => {
     const file = e.target.files[0];
@@ -35,6 +36,10 @@ const Dashboard = ({ user, isAdmin }) => {
     navigate('/user-list');
   };
 
+
+  useEffect(() => {
+    console.log(`Hi ${JSON.stringify(userLoggedIn)}`)
+  }, [])
 
 
   // ===================================
