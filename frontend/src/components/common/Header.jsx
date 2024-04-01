@@ -12,7 +12,7 @@ const Header = () => {
                 </Link>
                 <div className="col-md-3 text-end">
                     <Link to="/login" style={{height: "44px"}} className="btn btn-outline-primary pt-1 me-2">Login</Link>
-                    <Link to="/register" style={{height: "44px"}} className="btn btn-primary pt-1">Signup</Link>
+                    <Link to="/register" style={{height: "44px"}} className="btn btn-primary pt-1">Register</Link>
                 </div>
 
             </header>

@@ -49,9 +49,9 @@ const LoginForm = () => {
       <main class="form-signin w-100 vh-100  m-auto ">
         <div className='d-flex flex-column vh-100 align-items-center justify-content-center'>
 
-        <form className='container w-25 '>
+        <form className='container' style={{maxWidth: "50px", minWidth: "400px"}}>
 
-          <h4 class="mb-4 mt-1 fw-bold text-center">Sign in to your account</h4>
+          <h4 className="mb-4 mt-1 fw-bold text-center">Sign in to your account</h4>
 
           <input type="email" className="form-control mt-1" id="floatingInput" placeholder="Email"/>
           <input type="password" className="form-control mt-1" id="floatingPassword" placeholder="Password"/>

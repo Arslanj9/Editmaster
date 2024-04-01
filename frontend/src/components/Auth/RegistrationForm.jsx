@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../../utils/api';
+
+import google_icon from '../../../public/assets/google_icon.png'
+import facebook_icon from '../../../public/assets/facebook_icon.png'
 import './RegistrationForm.css';
 
 const RegistrationForm = () => {
@@ -34,48 +37,87 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="registration-container">
-      <h2>Register</h2>
-      <form className="registration-form" onSubmit={handleSubmit}>
-        <label>
-          Username:
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
+    <>
+      <main className="registration-form w-100 vh-100  m-auto ">
+        <div className='d-flex flex-column vh-100 align-items-center justify-content-center'>
 
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
+        <form className='container' style={{maxWidth: "50px", minWidth: "400px"}}>
 
-        <label>
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
+          <h4 className="mb-4 mt-1 fw-bold text-center">Register a new account</h4>
 
-        <button type="submit">Register</button>
-      </form>
-    </div>
+          <input type="text" className="form-control mt-1" id="floatingInput" placeholder="Username"/>
+          <input type="email" className="form-control mt-1" id="floatingInput" placeholder="Email"/>
+          <input type="password" className="form-control mt-1" id="floatingPassword" placeholder="Password"/>
+
+          <button type="submit" className='btn btn-outline-primary w-100 mt-3'>Register</button>
+          {/* {error && <p className="error-message">{error}</p>} */}
+          <div className="line-container mt-4">
+            <div className="line"></div>
+            <div className="text-inside">or alternatively</div>
+          </div>
+
+
+          <a className="btn btn-primary mt-4 w-100" style={{fontSize: "19px", backgroundColor: "transparent", borderColor: "#002440", color: "#00345c", }} href="#" role="button">
+            <img src={google_icon} style={{width: "23px"}} className='me-2 mb-1' alt="google icon" />
+            Sign in with Google
+          </a>
+          <a className="btn btn-primary mt-2 w-100" style={{fontSize: "19px", backgroundColor: "transparent", borderColor: "#002440", color: "#00345c", }} href="#" role="button">
+            <img src={facebook_icon} style={{width: "23px"}} className='me-2 mb-1' alt="google icon" />
+            Sign in with Facebook
+          </a>
+        </form>
+        </div>
+      </main>  
+    </>
+
+      // =============================================
+      //  -------------- THIS IS WORKING -------------
+      // ==============================================
+    // <div className="registration-container">
+    //   <h2>Register</h2>
+    //   <form className="registration-form" onSubmit={handleSubmit}>
+    //     <label>
+    //       Username:
+    //       <input
+    //         type="text"
+    //         name="name"
+    //         value={formData.name}
+    //         onChange={handleChange}
+    //         required
+    //       />
+    //     </label>
+    //     <br />
+
+    //     <label>
+    //       Email:
+    //       <input
+    //         type="email"
+    //         name="email"
+    //         value={formData.email}
+    //         onChange={handleChange}
+    //         required
+    //       />
+    //     </label>
+    //     <br />
+
+    //     <label>
+    //       Password:
+    //       <input
+    //         type="password"
+    //         name="password"
+    //         value={formData.password}
+    //         onChange={handleChange}
+    //         required
+    //       />
+    //     </label>
+    //     <br />
+
+    //     <button type="submit">Register</button>
+    //   </form>
+    // </div>
+    // =============================================
+      //  -------------- THIS IS WORKING -------------
+      // ==============================================
   );
 };
 
