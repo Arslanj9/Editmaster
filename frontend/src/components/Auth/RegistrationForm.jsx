@@ -37,14 +37,29 @@ const RegistrationForm = () => {
   };
 
 
+  
+  const handleFacebookLogin = () => {
+    // Redirect the user to the server route for Facebook authentication
+    window.location.href = 'http://localhost:3000/api/auth/facebook';
+  };
+
+  const handleGoogleLogin = () => {
+    // Redirect the user to the server route for Google authentication
+    window.location.href = 'http://localhost:3000/api/auth/google';
+  };
 
 
+
+
+  // ===================================
+  // |----------- Return --------------|
+  // ===================================  
   return (
     <>
       <main className="registration-form w-100 vh-100  m-auto ">
         <div className='d-flex flex-column vh-100 align-items-center justify-content-center'>
 
-        <form onSubmit={handleSubmit} className='container' style={{maxWidth: "50px", minWidth: "400px"}}>
+        <form onSubmit={handleSubmit} className='container' style={{maxWidth: "400px", minWidth: "50px", width: "90%"}}>
 
           <h4 className="mb-4 mt-1 fw-bold text-center">Register a new account</h4>
 
@@ -53,7 +68,6 @@ const RegistrationForm = () => {
           <input type="password" name="password" value={formData.password} onChange={handleChange} required className="form-control mt-1" placeholder="Password"/>
 
           <button type="submit" className='btn btn-outline-primary w-100 mt-3'>Register</button>
-          {/* {error && <p className="error-message">{error}</p>} */}
           <div className="line-container mt-4">
             <div className="line"></div>
             <div className="text-inside">or alternatively</div>
@@ -72,55 +86,6 @@ const RegistrationForm = () => {
         </div>
       </main>  
     </>
-
-      // =============================================
-      //  -------------- THIS IS WORKING -------------
-      // ==============================================
-    // <div className="registration-container">
-    //   <h2>Register</h2>
-    //   <form className="registration-form" onSubmit={handleSubmit}>
-    //     <label>
-    //       Username:
-    //       <input
-    //         type="text"
-    //         name="name"
-    //         value={formData.name}
-    //         onChange={handleChange}
-    //         required
-    //       />
-    //     </label>
-    //     <br />
-
-    //     <label>
-    //       Email:
-    //       <input
-    //         type="email"
-    //         name="email"
-    //         value={formData.email}
-    //         onChange={handleChange}
-    //         required
-    //       />
-    //     </label>
-    //     <br />
-
-    //     <label>
-    //       Password:
-    //       <input
-    //         type="password"
-    //         name="password"
-    //         value={formData.password}
-    //         onChange={handleChange}
-    //         required
-    //       />
-    //     </label>
-    //     <br />
-
-    //     <button type="submit">Register</button>
-    //   </form>
-    // </div>
-    // =============================================
-      //  -------------- THIS IS WORKING -------------
-      // ==============================================
   );
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from '../components/common/Header'
-import './Home.css'; 
 
 const Home = () => {
   
@@ -16,18 +15,13 @@ const Home = () => {
 
 
   return (
-    <>
+    <div className='vh-100'>
       <Header />
-      <div className="home-container">
-        <h2 className='fw-bold'>Welcome to EditMaster, Your PDF and Image Editor</h2>
-        
-        <p>Please create an account or log in to explore our features</p>
-        <div className='auth-links'>
-          <button className="auth-link" onClick={handleFacebookLogin}>Login with Facebook</button>
-          <button className="auth-link" onClick={handleGoogleLogin}>Login with Google</button>
-        </div>
+      <div className="home-container mx-auto text-center" style={{marginTop: "100px", maxWidth: "700px", minWidth: "50px", width: "90%"}}>
+          <h2 className='fw-bold'>Welcome to EditMaster, Your PDF and Image Editor</h2>
+          <p>Please create an account or log in to explore our features</p>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -44,14 +44,27 @@ const LoginForm = () => {
   };
 
 
+  const handleFacebookLogin = () => {
+    // Redirect the user to the server route for Facebook authentication
+    window.location.href = 'http://localhost:3000/api/auth/facebook';
+  };
 
-  
+  const handleGoogleLogin = () => {
+    // Redirect the user to the server route for Google authentication
+    window.location.href = 'http://localhost:3000/api/auth/google';
+  };
+
+
+
+  // ===================================
+  // |----------- Return --------------|
+  // ===================================  
   return (
     <>
       <main className="form-signin w-100 vh-100  m-auto ">
         <div className='d-flex flex-column vh-100 align-items-center justify-content-center'>
 
-        <form onSubmit={handleSubmit} className='container' style={{maxWidth: "50px", minWidth: "400px"}}>
+        <form onSubmit={handleSubmit} className='container' style={{maxWidth: "400px", minWidth: "50px", width: "90%"}}>
 
           <h4 className="mb-4 mt-1 fw-bold text-center">Sign in to your account</h4>
 
@@ -66,11 +79,11 @@ const LoginForm = () => {
           </div>
 
 
-          <a className="btn btn-primary mt-4 w-100" style={{fontSize: "19px", backgroundColor: "transparent", borderColor: "#002440", color: "#00345c", }} href="#" role="button">
+          <a onClick={handleGoogleLogin} className="btn btn-primary mt-4 w-100" style={{fontSize: "19px", backgroundColor: "transparent", borderColor: "#002440", color: "#00345c", }} href="#" role="button">
             <img src={google_icon} style={{width: "23px"}} className='me-2 mb-1' alt="google icon" />
             Sign in with Google
           </a>
-          <a className="btn btn-primary mt-2 w-100" style={{fontSize: "19px", backgroundColor: "transparent", borderColor: "#002440", color: "#00345c", }} href="#" role="button">
+          <a onClick={handleFacebookLogin} className="btn btn-primary mt-2 w-100" style={{fontSize: "19px", backgroundColor: "transparent", borderColor: "#002440", color: "#00345c", }} href="#" role="button">
             <img src={facebook_icon} style={{width: "23px"}} className='me-2 mb-1' alt="google icon" />
             Sign in with Facebook
           </a>

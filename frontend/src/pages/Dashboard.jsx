@@ -21,7 +21,6 @@ const Dashboard = ({ user, isAdmin }) => {
     const file = e.target.files[0];
     handlePDFUpload(file);
 
-
     const reader = new FileReader();
     reader.onloadend = () => {
       const pdfFile = reader.result;
@@ -36,7 +35,11 @@ const Dashboard = ({ user, isAdmin }) => {
     navigate('/user-list');
   };
 
-  
+
+
+  // ===================================
+  // |----------- Return --------------|
+  // ===================================  
   return (
     <>
     <Header />
