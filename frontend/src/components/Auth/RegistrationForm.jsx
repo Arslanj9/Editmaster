@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../../utils/api';
-
-import google_icon from '../../../public/assets/google_icon.png'
-import facebook_icon from '../../../public/assets/facebook_icon.png'
+import google_icon from '../../assets/google_icon.png'
+import facebook_icon from '../../assets/facebook_icon.png'
 import './RegistrationForm.css';
+
 
 const RegistrationForm = () => {
   const navigate = useNavigate();
@@ -36,18 +36,21 @@ const RegistrationForm = () => {
     }
   };
 
+
+
+
   return (
     <>
       <main className="registration-form w-100 vh-100  m-auto ">
         <div className='d-flex flex-column vh-100 align-items-center justify-content-center'>
 
-        <form className='container' style={{maxWidth: "50px", minWidth: "400px"}}>
+        <form onSubmit={handleSubmit} className='container' style={{maxWidth: "50px", minWidth: "400px"}}>
 
           <h4 className="mb-4 mt-1 fw-bold text-center">Register a new account</h4>
 
-          <input type="text" className="form-control mt-1" id="floatingInput" placeholder="Username"/>
-          <input type="email" className="form-control mt-1" id="floatingInput" placeholder="Email"/>
-          <input type="password" className="form-control mt-1" id="floatingPassword" placeholder="Password"/>
+          <input type="text" name="name" value={formData.name} onChange={handleChange} required className="form-control mt-1" placeholder="Username"/>
+          <input type="email" name="email" value={formData.email} onChange={handleChange} required className="form-control mt-1" placeholder="Email"/>
+          <input type="password" name="password" value={formData.password} onChange={handleChange} required className="form-control mt-1" placeholder="Password"/>
 
           <button type="submit" className='btn btn-outline-primary w-100 mt-3'>Register</button>
           {/* {error && <p className="error-message">{error}</p>} */}
