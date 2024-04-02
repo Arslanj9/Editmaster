@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../utils/api';
 import google_icon from '../../assets/google_icon.png'
 import facebook_icon from '../../assets/facebook_icon.png'
 import './LoginForm.css'; 
+import { UserLoggedInContext } from '../../contexts/userLoggedInContext';
 
 const LoginForm = () => {
 
@@ -13,6 +14,8 @@ const LoginForm = () => {
     password: '',
   });
   const [error, setError] = useState(null);
+
+  const { login, logout } = useContext(UserLoggedInContext)
 
   
   const handleChange = (e) => {
@@ -33,6 +36,7 @@ const LoginForm = () => {
         } else {
           navigate('/dashboard/user');
         }
+        login()
       } else {
         console.error('Login failed: Unexpected response format', response);
         setError('Invalid credentials. Please try again.');
