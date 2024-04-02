@@ -1,7 +1,11 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
+
+    const [userLogin, setUserLogin] = useState(true) 
+
+
   return (
     <>
         <div className="container">
@@ -10,10 +14,19 @@ const Header = () => {
                 <Link to="/" className='text-decoration-none'>
                     <h4 className='mt-1 mb-0 fw-bold text-primary'>Editmaster</h4>  
                 </Link>
-                <div className="col-md-3 text-end">
-                    <Link to="/login" style={{height: "44px"}} className="btn btn-outline-primary pt-1 me-2">Login</Link>
-                    <Link to="/register" style={{height: "44px"}} className="btn btn-primary pt-1">Register</Link>
-                </div>
+                
+                    {
+                        userLogin ? 
+                        <div className="col-md-3 text-end">
+                            <Link to="/" style={{height: "44px"}} className="btn btn-outline-primary pt-1 me-2">Logout</Link>
+                            <Link to="/profile" style={{height: "44px"}} className="btn btn-primary pt-1">Profile</Link>
+                        </div> : 
+                        <div className="col-md-3 text-end">
+                            <Link to="/login" style={{height: "44px"}} className="btn btn-outline-primary pt-1 me-2">Login</Link>
+                            <Link to="/register" style={{height: "44px"}} className="btn btn-primary pt-1">Register</Link>
+                        </div>
+                    }
+                    
 
             </header>
         </div>
