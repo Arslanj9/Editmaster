@@ -15,7 +15,7 @@ const LoginForm = () => {
   });
   const [error, setError] = useState(null);
 
-  const { login, logout } = useContext(UserLoggedInContext)
+  const { login } = useContext(UserLoggedInContext)
 
   
   const handleChange = (e) => {
@@ -29,6 +29,9 @@ const LoginForm = () => {
       const response = await loginUser(formData);
       if (response && response.data) {
         const { role } = response.data;
+
+       // Store token in localStorage
+       localStorage.setItem('token', response.data.token);
 
         // Redirect based on user role
         if (role === 'admin') {

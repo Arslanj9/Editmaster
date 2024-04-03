@@ -7,6 +7,8 @@ const Header = () => {
     const { isLoggedIn, logout } = useContext(UserLoggedInContext)
 
     const handleLogout = () => {
+        // Clear token from localStorage
+        localStorage.removeItem('token');
         logout()
     }
   return (

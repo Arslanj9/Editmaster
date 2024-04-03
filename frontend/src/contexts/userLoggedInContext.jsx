@@ -1,13 +1,29 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 
 export const UserLoggedInContext = createContext()
 
 const UserLoggedInProvider = ({ children }) => {
 
-    const [isLoggedIn, setIsLoggeedIn] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    
+    useEffect(() => {
+      // Check if token exists in localStorage
+      const token = localStorage.getItem('token');
+      if (token) {
+        setIsLoggedIn(true);
+      }
+    }, []);
+  
+    const login = () => {
+      setIsLoggedIn(true);
+    };
+  
+    const logout = () => {
+      // Clear token from localStorage
+      localStorage.removeItem('token');
+      setIsLoggedIn(false);
+    };
 
-    const login = () => setIsLoggeedIn(true)
-    const logout = () => setIsLoggeedIn(false)
 
   return (
     <UserLoggedInContext.Provider value={{ isLoggedIn, login, logout }}>
