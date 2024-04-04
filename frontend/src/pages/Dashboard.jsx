@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { PDFContext } from "../contexts/pdfContext";
 import { UserLoggedInContext } from "../contexts/userLoggedInContext";
 import { useNavigate } from "react-router-dom";

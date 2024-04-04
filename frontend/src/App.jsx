@@ -10,6 +10,7 @@ import UserList from './pages/UserList';
 import PDFProvider from './contexts/pdfContext'
 import UserLoggedInProvider from './contexts/userLoggedInContext'
 import './App.css'
+import Profile from './pages/Profile';
 
 function App() {
   const [user, setUser] = useState(null); // Initialize user state
@@ -27,6 +28,7 @@ function App() {
               <Route path='/login' element={<LoginForm setUser={setUser} />} />
               <Route path='/dashboard' element={<Dashboard user={user} />} />
               <Route path='/pdfViewer' element={<PdfViewer />} />
+              <Route path='/profile' element={<Profile />} />
 
               {/* ---- Additional routes for admin and user roles ---- */}
               <Route path='/dashboard/admin' element={<Dashboard user={user} isAdmin={true} />} />
