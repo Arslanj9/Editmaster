@@ -13,12 +13,7 @@ const Profile = () => {
         </div>
         <div className="d-flex align-items-center mt-2">
           <h4 style={{ marginRight: "10px;", marginTop: "10px" }}>Email:</h4>
-          <input
-            type="text"
-            className="ms-4"
-            disabled
-            placeholder={userEmail}
-          />
+          <input type="text" className="ms-4" disabled placeholder={userEmail} />
         </div>
         <div class="form-check mt-3 mx-auto w-50">
           <input
@@ -59,7 +54,7 @@ const Profile = () => {
               Edit Profile
             </button>
 
-            {/* Modal */}
+            {/* Modal for Edit Profile */}
             <div
               className="modal fade"
               id="editProfileModal"
@@ -82,10 +77,31 @@ const Profile = () => {
                       aria-label="Close"
                     ></button>
                   </div>
-                  <div className="modal-body">...</div>
+                  <div className="modal-body">
+                    <div className="d-flex align-items-center" style={{marginTop: "-20px"}}>
+                      <p style={{ marginRight: "10px;", marginTop: "20px" }}>Name:</p>
+                      <input type="text" className="ms-4 h-100" placeholder="New Name" />
+                    </div>
+                    <div className="d-flex align-items-center" style={{marginTop: "-15px"}}>
+                      <p style={{ marginRight: "10px;", marginTop: "20px" }}>Email:</p>
+                      <input type="text" className="ms-4 h-100" placeholder="New Email" />
+                    </div>
+                    <div class="form-check mt-3 mx-auto w-50">
+                      <input
+                        className="form-check-input "
+                        type="checkbox"
+                        value=""
+                        id="flexCheckDefault"
+                        checked
+                      />
+                      <label className="form-check-label " for="flexCheckDefault">
+                        Send Notifications
+                      </label>
+                    </div>
+                  </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-primary">
-                      Save
+                      Confirm
                     </button>
                   </div>
                 </div>
@@ -106,7 +122,7 @@ const Profile = () => {
               Reset Password
             </button>
 
-            {/* Modal */}
+            {/* Modal for reset password */}
             <div
               className="modal fade"
               id="resetPasswordModal"
@@ -129,10 +145,18 @@ const Profile = () => {
                       aria-label="Close"
                     ></button>
                   </div>
-                  <div className="modal-body">...</div>
+                  <div className="modal-body">
+
+                      <p style={{ marginTop: "10px", fontSize: "18px", marginBottom: "0px" }}>New Password:</p>
+                      <input type="password" style={{fontSize: "18px"}} className="h-100 mb-0" placeholder="Enter New Password" />
+                    
+                      <p style={{ marginRight: "10px;", marginTop: "20px", fontSize: "18px", marginBottom: "0px"  }}>Confirm New Password:</p>
+                      <input type="password" style={{fontSize: "18px"}} className=" h-100" placeholder="Confirm New Password" />
+
+                  </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-primary">
-                      Save
+                      Confirm
                     </button>
                   </div>
                 </div>
