@@ -9,7 +9,6 @@ export const PDFProvider = ({ children }) => {
 
   const [pdfData, setPDFData] = useState(null);
 
-
   const handlePDFUpload = (newData) => {
     setPDFData(newData);    
   };

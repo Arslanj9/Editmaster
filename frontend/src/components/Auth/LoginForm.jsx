@@ -5,6 +5,7 @@ import google_icon from '../../assets/google_icon.png'
 import facebook_icon from '../../assets/facebook_icon.png'
 import './LoginForm.css'; 
 import { UserLoggedInContext } from '../../contexts/userLoggedInContext';
+import { UserDataContext } from '../../contexts/userDataContext';
 
 const LoginForm = () => {
 
@@ -16,11 +17,14 @@ const LoginForm = () => {
   const [error, setError] = useState(null);
 
   const { login } = useContext(UserLoggedInContext)
+  const { setUser, userData } = useContext(UserDataContext)
 
   
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  console.log(userData)
 
 
   const handleSubmit = async (e) => {
@@ -29,6 +33,9 @@ const LoginForm = () => {
       const response = await loginUser(formData);
       if (response && response.data) {
         const { role } = response.data;
+
+        const { userId } = response.data; 
+        setUser(userId);
 
        // Store token in localStorage
        localStorage.setItem('token', response.data.token);

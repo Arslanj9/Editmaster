@@ -67,6 +67,31 @@ router.post('/login', async (req, res) => {
 });
 
 
+
+// Get User Data route
+router.get('/userData/:userId', async (req, res) => {
+  try {
+    // Extract the user ID from the request parameters
+    const userId = req.params.userId;
+
+    // Get user data from the database using the user ID
+    const user = await User.findById(userId).select('name email');
+
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Send user data to the client
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+
+
 // Forgot Password - Generate and send reset token via email
 router.post('/forgot-password', async (req, res) => {
   try {
