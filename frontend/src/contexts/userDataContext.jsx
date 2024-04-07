@@ -29,17 +29,6 @@ const UserDataProvider = ({ children }) => {
     }, [userId]);
 
 
-
-    // useEffect(() => {
-    //   // Check if user data exists in cookies on component mount
-    //   const cookies = document.cookie.split(';').map(cookie => cookie.trim());
-    //   const userDataCookie = cookies.find(cookie => cookie.startsWith('userData='));
-    //   if (userDataCookie) {
-    //     const userDataStr = userDataCookie.split('=')[1];
-    //     setUserData(JSON.parse(userDataStr));
-    //   }
-    // }, []);
-
   
     const removeUserData = () => {
       // Clear user data cookie

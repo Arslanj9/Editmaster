@@ -6,11 +6,6 @@ const Profile = () => {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userData, setUserData] = useState("");
-
-  // const { userData } = useContext(UserDataContext)
-  // const userName = userData.userName()
-
-  // console.log(`Thisis inside profile${JSON.stringify(userData)}`)
   
 
 
@@ -26,22 +21,9 @@ const Profile = () => {
         }
       }, []);
 
-      useEffect(() => {
-        if(userData){
-          setUserName(userData.name);
-          setUserEmail(userData.email);
-        }
-      }, [])
 
 
-      if (userData) {
-        console.log(`Name: ${userData.name}`);
-        console.log(`Email: ${userData.email}`);
-        console.log(`Name or: ${userName}`);
-        console.log(`Email or: ${userEmail}`);
-      } else {
-        console.log('userData is undefined');
-      }
+
 
   return (
     <>
