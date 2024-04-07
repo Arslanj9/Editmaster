@@ -1,21 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { UserDataContext } from "../contexts/userDataContext";
 
 const Profile = () => {
-  const [userName, setUserName] = useState("User1");
-  const [userEmail, setUserEmail] = useState("user@gmail.com");
+
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userData, setUserData] = useState("");
+
+  // const { userData } = useContext(UserDataContext)
+  // const userName = userData.userName()
+
+  // console.log(`Thisis inside profile${JSON.stringify(userData)}`)
+  
+
+
+  // Getting userdata from cookies
+    useEffect(() => {
+        // Check if user data exists in cookies on component mount
+        const cookies = document.cookie.split(';').map(cookie => cookie.trim());
+        const userDataCookie = cookies.find(cookie => cookie.startsWith('userData='));
+        if (userDataCookie) {
+          const userDataStr = userDataCookie.split('=')[1];
+          setUserData(JSON.parse(userDataStr));
+          
+        }
+      }, []);
+
+      useEffect(() => {
+        if(userData){
+          setUserName(userData.name);
+          setUserEmail(userData.email);
+        }
+      }, [])
+
+
+      if (userData) {
+        console.log(`Name: ${userData.name}`);
+        console.log(`Email: ${userData.email}`);
+        console.log(`Name or: ${userName}`);
+        console.log(`Email or: ${userEmail}`);
+      } else {
+        console.log('userData is undefined');
+      }
 
   return (
     <>
       <div className="w-50 mx-auto mt-5">
         <div className="d-flex align-items-center">
-          <h4 style={{ marginRight: "10px;", marginTop: "10px" }}>Name:</h4>
-          <input type="text" className="ms-4" disabled placeholder={userName} />
+          <h4 style={{ marginRight: "10px", marginTop: "10px" }}>Name:</h4>
+          <input type="text" className="ms-4" disabled placeholder={userData.name} />
         </div>
         <div className="d-flex align-items-center mt-2">
-          <h4 style={{ marginRight: "10px;", marginTop: "10px" }}>Email:</h4>
-          <input type="text" className="ms-4" disabled placeholder={userEmail} />
+          <h4 style={{ marginRight: "10px", marginTop: "10px" }}>Email:</h4>
+          <input type="text" className="ms-4" disabled placeholder={userData.email} />
         </div>
-        <div class="form-check mt-3 mx-auto w-50">
+        <div className="form-check mt-3 mx-auto w-50">
           <input
             className="form-check-input "
             type="checkbox"
@@ -24,21 +63,15 @@ const Profile = () => {
             checked
             disabled
           />
-          <label className="form-check-label " for="flexCheckDefault">
+          <label className="form-check-label " htmlFor="flexCheckDefault">
             Send Notifications
           </label>
         </div>
 
+
+
+
         {/* Buttons */}
-        {/* <div className='d-flex justify-content-end mt-4'>
-            <button style={{ marginRight: '10px' }} className="btn btn-outline-primary ">Edit Profile</button>
-            <button className="btn btn-outline-primary">Reset Password</button>
-        </div> */}
-
-
-
-
-
         <div className="d-flex justify-content-end mt-4">
           <div className="me-2">
             {/* ========================
@@ -79,22 +112,22 @@ const Profile = () => {
                   </div>
                   <div className="modal-body">
                     <div className="d-flex align-items-center" style={{marginTop: "-20px"}}>
-                      <p style={{ marginRight: "10px;", marginTop: "20px" }}>Name:</p>
+                      <p style={{ marginRight: "10px", marginTop: "20px" }}>Name:</p>
                       <input type="text" className="ms-4 h-100" placeholder="New Name" />
                     </div>
                     <div className="d-flex align-items-center" style={{marginTop: "-15px"}}>
-                      <p style={{ marginRight: "10px;", marginTop: "20px" }}>Email:</p>
+                      <p style={{ marginRight: "10px", marginTop: "20px" }}>Email:</p>
                       <input type="text" className="ms-4 h-100" placeholder="New Email" />
                     </div>
-                    <div class="form-check mt-3 mx-auto w-50">
+                    <div className="form-check mt-3 mx-auto w-50">
                       <input
                         className="form-check-input "
                         type="checkbox"
                         value=""
                         id="flexCheckDefault"
-                        checked
+                        defaultChecked
                       />
-                      <label className="form-check-label " for="flexCheckDefault">
+                      <label className="form-check-label " htmlFor="flexCheckDefault">
                         Send Notifications
                       </label>
                     </div>
@@ -150,13 +183,13 @@ const Profile = () => {
                       <p style={{ marginTop: "10px", fontSize: "18px", marginBottom: "0px" }}>New Password:</p>
                       <input type="password" style={{fontSize: "18px"}} className="h-100 mb-0" placeholder="Enter New Password" />
                     
-                      <p style={{ marginRight: "10px;", marginTop: "20px", fontSize: "18px", marginBottom: "0px"  }}>Confirm New Password:</p>
+                      <p style={{ marginRight: "10px", marginTop: "20px", fontSize: "18px", marginBottom: "0px"  }}>Confirm New Password:</p>
                       <input type="password" style={{fontSize: "18px"}} className=" h-100" placeholder="Confirm New Password" />
 
                   </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-primary">
-                      Confirm
+                      Update
                     </button>
                   </div>
                 </div>
