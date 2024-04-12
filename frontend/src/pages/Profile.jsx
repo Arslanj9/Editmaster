@@ -3,9 +3,9 @@ import { UserDataContext } from "../contexts/userDataContext";
 
 const Profile = () => {
 
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
   const [userData, setUserData] = useState("");
+
+  const {} = useContext(UserDataContext)
   
 
 

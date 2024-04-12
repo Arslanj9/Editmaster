@@ -26,6 +26,7 @@ export const loginUser = async (userData) => {
 };
 
 
+// Function to get all users
 export const getAllUsers = async (token) => {
   try {
     const response = await axios.get(`${BASE_URL}/api/admin/users`, {
@@ -40,3 +41,49 @@ export const getAllUsers = async (token) => {
 };
 
 
+
+
+// Function to update user profile
+export const updateUserProfile = async (newName, newEmail) => {
+  try {
+    const response = await fetch('/api/update-profile', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        // You might need to include authentication headers here depending on your backend setup
+      },
+      body: JSON.stringify({ name: newName, email: newEmail }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update profile');
+    }
+
+    const updatedUserData = await response.json();
+    return updatedUserData;
+  } catch (error) {
+    throw new Error('Failed to update profile: ' + error.message);
+  }
+};
+
+// Function to update user password
+export const updateUserPassword = async (newPassword) => {
+  try {
+    const response = await fetch('/api/update-password', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        // You might need to include authentication headers here depending on your backend setup
+      },
+      body: JSON.stringify({ password: newPassword }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update password');
+    }
+
+    // Password updated successfully
+  } catch (error) {
+    throw new Error('Failed to update password: ' + error.message);
+  }
+};
