@@ -28,7 +28,7 @@ mongoose.connection.on('error', (err) => {
   console.error(`MongoDB connection error: ${err}`);
 });
 
-// Use User Routes
+// Use User Routes - api/auth/..
 app.use('/api', userRoutes);
 
 // Use Admin Routes

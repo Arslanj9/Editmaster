@@ -1,20 +1,24 @@
 import React, { useState, useContext } from "react";
 import { PDFContext } from "../contexts/pdfContext";
+import { ImageContext } from "../contexts/imageContext";
 import { UserLoggedInContext } from "../contexts/userLoggedInContext";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/common/Header";
 import "./Dashboard.css";
 
 const Dashboard = ({ isAdmin }) => {
-  const [picture, setPicture] = useState(null);
+  // const [picture, setPicture] = useState(null);
   const navigate = useNavigate();
   const { handlePDFUpload } = useContext(PDFContext);
+  const { handleImgUpload } = useContext(ImageContext);
   const { userLoggedIn, isLoggedIn } = useContext(UserLoggedInContext);
 
 
   const addPicture = (e) => {
     const file = e.target.files[0];
-    setPicture(file);
+    const imageUrl = URL.createObjectURL(file); // Convert File to URL
+    handleImgUpload(imageUrl); 
+    navigate("/imageViewer");
   };
   
 
@@ -54,7 +58,7 @@ const Dashboard = ({ isAdmin }) => {
               <div style={{width: "280px"}} className="upload-picture border border-3 border-opacity-50 border-primary rounded mt-5 p-2 m-auto d-flex flex-column align-items-center">
                 <p className="upload-text" style={{ fontSize: "18px" }}>Edit Picture</p>
                 <input style={{ width: "200px", height: "40px", fontSize: "14px" }} type="file" accept="image/*" onChange={addPicture} />
-                {picture && <p>Picture uploaded: {picture.name}</p>}
+                {/* {picture && <p>Picture uploaded: {picture.name}</p>} */}
               </div>
               {/* Upload PDF for edit */}
               <div style={{width: "280px"}} className="upload-picture border border-3 border-opacity-50 border-primary rounded mt-5 p-2 m-auto d-flex flex-column align-items-center">
@@ -75,7 +79,7 @@ const Dashboard = ({ isAdmin }) => {
               <div style={{width: "280px"}} className="upload-picture border border-3 border-opacity-50 border-primary rounded mt-5 p-2 m-auto d-flex flex-column align-items-center">
                 <p className="upload-text" style={{ fontSize: "18px" }}>Picture to PDF</p>
                 <input style={{ width: "200px", height: "40px", fontSize: "14px" }} type="file" accept="image/*" onChange={addPicture} />
-                {picture && <p>Picture uploaded: {picture.name}</p>}
+                {/* {picture && <p>Picture uploaded: {picture.name}</p>} */}
               </div>
               {/* Upload PDF for Conversion */}
               <div style={{width: "280px"}} className="upload-picture border border-3 border-opacity-50 border-primary rounded mt-5 p-2 m-auto d-flex flex-column align-items-center">
