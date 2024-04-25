@@ -4,6 +4,7 @@ import { ImageContext } from "../contexts/imageContext";
 import { UserLoggedInContext } from "../contexts/userLoggedInContext";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/common/Header";
+import Home from './Home'
 import "./Dashboard.css";
 
 const Dashboard = ({ isAdmin }) => {
@@ -46,9 +47,11 @@ const Dashboard = ({ isAdmin }) => {
 
   return (
     <>
-      <Header />
+      
       {isLoggedIn ? (
-        <div className="dashboard-container">
+        <div>
+          <Header />
+            <div className="dashboard-container">
           <h2>Welcome to the Dashboard!</h2>
 
           <div className="upload-section">
@@ -71,26 +74,7 @@ const Dashboard = ({ isAdmin }) => {
           </div>
 
 
-          <div className="upload-section">
-
-            <div className="d-flex">
-
-              {/* Upload picture for Conversion */}
-              <div style={{width: "280px"}} className="upload-picture border border-3 border-opacity-50 border-primary rounded mt-5 p-2 m-auto d-flex flex-column align-items-center">
-                <p className="upload-text" style={{ fontSize: "18px" }}>Picture to PDF</p>
-                <input style={{ width: "200px", height: "40px", fontSize: "14px" }} type="file" accept="image/*" onChange={addPicture} />
-                {/* {picture && <p>Picture uploaded: {picture.name}</p>} */}
-              </div>
-              {/* Upload PDF for Conversion */}
-              <div style={{width: "280px"}} className="upload-picture border border-3 border-opacity-50 border-primary rounded mt-5 p-2 m-auto d-flex flex-column align-items-center">
-                <p className="upload-text" style={{fontSize: "18px"}}>PDF to Picture</p>
-                <input style={{ width: "200px", height: "40px", fontSize: "14px" }} type="file" accept=".pdf" onChange={addPDF} />
-                {/* {pdf && <p>PDF uploaded: {pdf.name}</p>} */}
-              </div>
-
-            </div>
-
-          </div>
+          
 
           {/* Conditional rendering for the admin button */}
           {isAdmin && (
@@ -102,8 +86,11 @@ const Dashboard = ({ isAdmin }) => {
             </div>
           )}
         </div>
+        </div>
+        
       ) : (
         <div className="container w-100 text-center">
+          <Header />
           <h2 style={{marginTop: "100px"}}>Please login or register</h2>
         </div>
       )}

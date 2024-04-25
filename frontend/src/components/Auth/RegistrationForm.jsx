@@ -43,8 +43,8 @@ const RegistrationForm = () => {
     window.location.href = 'http://localhost:3000/api/auth/facebook';
   };
 
-  const handleGoogleLogin = () => {
-    // Redirect the user to the server route for Google authentication
+  const handleGoogleRegistration = () => {
+    // Redirect the user to the server route for Google registration
     window.location.href = 'http://localhost:3000/api/auth/google';
   };
 
@@ -74,7 +74,7 @@ const RegistrationForm = () => {
           </div>
 
 
-          <a className="btn btn-primary mt-4 w-100" style={{fontSize: "19px", backgroundColor: "transparent", borderColor: "#002440", color: "#00345c", }} href="#" role="button">
+          <a onClick={handleGoogleRegistration} className="btn btn-primary mt-4 w-100" style={{fontSize: "19px", backgroundColor: "transparent", borderColor: "#002440", color: "#00345c", }} href="#" role="button">
             <img src={google_icon} style={{width: "23px"}} className='me-2 mb-1' alt="google icon" />
             Sign in with Google
           </a>

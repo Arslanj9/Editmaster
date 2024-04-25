@@ -40,6 +40,7 @@ const LoginForm = () => {
        // Store token in localStorage
        localStorage.setItem('token', response.data.token);
 
+
         // Redirect based on user role
         if (role === 'admin') {
           navigate('/dashboard/admin');
@@ -57,16 +58,16 @@ const LoginForm = () => {
     }
   };
 
+  const handleGoogleLogin = () => {
+    // Redirect the user to the server route for Google authentication
+    window.location.href = 'http://localhost:3000/api/auth/google';
+  };
 
   const handleFacebookLogin = () => {
     // Redirect the user to the server route for Facebook authentication
     window.location.href = 'http://localhost:3000/api/auth/facebook';
   };
 
-  const handleGoogleLogin = () => {
-    // Redirect the user to the server route for Google authentication
-    window.location.href = 'http://localhost:3000/api/auth/google';
-  };
 
 
 

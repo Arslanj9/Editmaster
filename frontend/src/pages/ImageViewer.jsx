@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { fabric } from 'fabric';
 import { useFabricJSEditor, FabricJSCanvas } from 'fabricjs-react';
 import { ImageContext } from '../contexts/imageContext';
-import img from './download.jpeg';
 
 const ImageViewer = () => {
   const { editor, onReady } = useFabricJSEditor();
