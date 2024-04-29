@@ -98,11 +98,16 @@ router.get('/userData/:userId', async (req, res) => {
 
 
 
+
 // Change Name and Email - route
 router.post('/updateProfile', async (req, res) => {
-  const { userId, newName, newEmail } = req.body;
-
+  const { newName, newEmail } = req.body;
+  
   try {
+    const token = req.headers.authorization.split(" ")[1]; // Extract token from Authorization header
+    const decodedToken = jwt.verify(token, "your-secret-key"); // Replace "your_secret_key" with your actual secret key
+    const userId = decodedToken.userId; // Extract userId from decoded token
+
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
@@ -128,6 +133,7 @@ router.post('/updateProfile', async (req, res) => {
 
 
 
+
 // Forgot Password - Generate and send reset token via email
 router.post('/forgot-password', async (req, res) => {
   try {
@@ -145,7 +151,7 @@ router.post('/forgot-password', async (req, res) => {
     });
 
     // Construct the reset link with the token
-    const resetLink = `http://your-app-domain/reset-password?token=${resetToken}`;
+    const resetLink = `http://localhost:5173/reset-password/${resetToken}`;
 
     // Send reset link via email
     const transporter = nodemailer.createTransport({
@@ -176,12 +182,13 @@ router.post('/forgot-password', async (req, res) => {
 
 
 // Reset Password
-router.post('/reset-password', async (req, res) => {
+router.post('/reset-password/:token', async (req, res) => {
   try {
-    const { resetToken, newPassword } = req.body;
+    const {token} = req.params
+    const { newPassword } = req.body;
 
     // Verify reset token
-    const decodedToken = jwt.verify(resetToken, 'your-reset-secret-key');
+    const decodedToken = jwt.verify(token, 'your-reset-secret-key');
     const userId = decodedToken.userId;
 
     // Find the user in the database
@@ -203,6 +210,8 @@ router.post('/reset-password', async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
+
 
 
 

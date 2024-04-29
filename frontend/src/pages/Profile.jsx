@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { UserDataContext } from "../contexts/userDataContext";
-import ForgotPasswordModal from "./Profile/ForgotPasswordModal";
+// import ForgotPasswordModal from "../components/Auth/ForgotPasswordModal";
 import EditProfileModal from "./Profile/EditProfileModal";
 
 const Profile = () => {
@@ -58,7 +58,7 @@ const Profile = () => {
         {/* Buttons */}
         <div className="d-flex justify-content-end mt-4">
           <EditProfileModal />
-          <ForgotPasswordModal />
+          
         </div>
       </div>
     </>

@@ -1,30 +1,27 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../utils/api';
-import google_icon from '../../assets/google_icon.png'
-import facebook_icon from '../../assets/facebook_icon.png'
-import './LoginForm.css'; 
-import { UserLoggedInContext } from '../../contexts/userLoggedInContext';
-import { UserDataContext } from '../../contexts/userDataContext';
+import React, { useState, useContext } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { loginUser } from "../../utils/api";
+import google_icon from "../../assets/google_icon.png";
+import facebook_icon from "../../assets/facebook_icon.png";
+import "./LoginForm.css";
+import { UserLoggedInContext } from "../../contexts/userLoggedInContext";
+import { UserDataContext } from "../../contexts/userDataContext";
+import ForgotPasswordModal from "./ForgotPasswordModal";
 
 const LoginForm = () => {
-
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const [error, setError] = useState(null);
 
-  const { login } = useContext(UserLoggedInContext)
-  const { setUser, userData } = useContext(UserDataContext)
+  const { login } = useContext(UserLoggedInContext);
+  const { setUser, userData } = useContext(UserDataContext);
 
-  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  console.log(userData)
 
 
   const handleSubmit = async (e) => {
@@ -34,79 +31,152 @@ const LoginForm = () => {
       if (response && response.data) {
         const { role } = response.data;
 
-        const { userId } = response.data; 
+        const { userId } = response.data;
         setUser(userId);
 
-       // Store token in localStorage
-       localStorage.setItem('token', response.data.token);
-
+        // Store token in localStorage
+        localStorage.setItem("token", response.data.token);
 
         // Redirect based on user role
-        if (role === 'admin') {
-          navigate('/dashboard/admin');
+        if (role === "admin") {
+          navigate("/dashboard/admin");
         } else {
-          navigate('/dashboard/user');
+          navigate("/dashboard/user");
         }
-        login()
+        login();
       } else {
-        console.error('Login failed: Unexpected response format', response);
-        setError('Invalid credentials. Please try again.');
+        console.error("Login failed: Unexpected response format", response);
+        setError("Invalid credentials. Please try again.");
       }
     } catch (error) {
-      console.error('Login failed:', error.response?.data || error.message);
-      setError('Invalid credentials. Please try again.');
+      console.error("Login failed:", error.response?.data || error.message);
+      setError("Invalid credentials. Please try again.");
     }
   };
 
   const handleGoogleLogin = () => {
     // Redirect the user to the server route for Google authentication
-    window.location.href = 'http://localhost:3000/api/auth/google';
+    window.location.href = "http://localhost:3000/api/auth/google";
   };
 
   const handleFacebookLogin = () => {
     // Redirect the user to the server route for Facebook authentication
-    window.location.href = 'http://localhost:3000/api/auth/facebook';
+    window.location.href = "http://localhost:3000/api/auth/facebook";
   };
+
+
+
+
 
 
 
 
   // ===================================
   // |----------- Return --------------|
-  // ===================================  
+  // ===================================
   return (
     <>
       <main className="form-signin w-100 vh-100  m-auto ">
-        <div className='d-flex flex-column vh-100 align-items-center justify-content-center'>
+        <div className="d-flex flex-column vh-100 align-items-center justify-content-center">
+          <form
+            onSubmit={handleSubmit}
+            className="container"
+            style={{ maxWidth: "400px", minWidth: "50px", width: "90%" }}
+          >
+            <h4 className="mb-4 mt-1 fw-bold text-center">
+              Sign in to your account
+            </h4>
 
-        <form onSubmit={handleSubmit} className='container' style={{maxWidth: "400px", minWidth: "50px", width: "90%"}}>
+            <input
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="form-control mt-1"
+              id="floatingInput"
+              placeholder="Email"
+            />
+            <input
+              name="password"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="form-control mt-1"
+              id="floatingPassword"
+              placeholder="Password"
+            />
 
-          <h4 className="mb-4 mt-1 fw-bold text-center">Sign in to your account</h4>
+            <button
+              type="submit"
+              className="btn btn-outline-primary w-100 mt-3"
+            >
+              Login
+            </button>
+            {error && <p className="error-message">{error}</p>}
+            <Link to="/forgot-password">
+            <div
+              className="text-primary mt-2"
+              style={{
+                cursor: "pointer",
+                textDecoration: "underline",
+                fontSize: "16px",
+              }}
+            >
+              Forgot Password?
+            </div>
+            </Link>
 
-          <input name='email' type="email" value={formData.email} onChange={handleChange} required className="form-control mt-1" id="floatingInput" placeholder="Email"/>
-          <input name='password' type="password" value={formData.password} onChange={handleChange} required className="form-control mt-1" id="floatingPassword" placeholder="Password"/>
+            <div className="line-container mt-4">
+              <div className="line"></div>
+              <div className="text-inside">or alternatively</div>
+            </div>
 
-          <button type="submit" className='btn btn-outline-primary w-100 mt-3'>Login</button>
-          {error && <p className="error-message">{error}</p>}
-          <div className="line-container mt-4">
-            <div className="line"></div>
-            <div className="text-inside">or alternatively</div>
-          </div>
-
-
-          <a onClick={handleGoogleLogin} className="btn btn-primary mt-4 w-100" style={{fontSize: "19px", backgroundColor: "transparent", borderColor: "#002440", color: "#00345c", }} href="#" role="button">
-            <img src={google_icon} style={{width: "23px"}} className='me-2 mb-1' alt="google icon" />
-            Sign in with Google
-          </a>
-          <a onClick={handleFacebookLogin} className="btn btn-primary mt-2 w-100" style={{fontSize: "19px", backgroundColor: "transparent", borderColor: "#002440", color: "#00345c", }} href="#" role="button">
-            <img src={facebook_icon} style={{width: "23px"}} className='me-2 mb-1' alt="google icon" />
-            Sign in with Facebook
-          </a>
-        </form>
+            <a
+              onClick={handleGoogleLogin}
+              className="btn btn-primary mt-4 w-100"
+              style={{
+                fontSize: "19px",
+                backgroundColor: "transparent",
+                borderColor: "#002440",
+                color: "#00345c",
+              }}
+              href="#"
+              role="button"
+            >
+              <img
+                src={google_icon}
+                style={{ width: "23px" }}
+                className="me-2 mb-1"
+                alt="google icon"
+              />
+              Sign in with Google
+            </a>
+            <a
+              onClick={handleFacebookLogin}
+              className="btn btn-primary mt-2 w-100"
+              style={{
+                fontSize: "19px",
+                backgroundColor: "transparent",
+                borderColor: "#002440",
+                color: "#00345c",
+              }}
+              href="#"
+              role="button"
+            >
+              <img
+                src={facebook_icon}
+                style={{ width: "23px" }}
+                className="me-2 mb-1"
+                alt="google icon"
+              />
+              Sign in with Facebook
+            </a>
+          </form>
         </div>
-      </main>  
+      </main>
     </>
-
   );
 };
 

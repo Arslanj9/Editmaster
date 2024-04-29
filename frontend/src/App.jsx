@@ -14,6 +14,8 @@ import UserLoggedInProvider from './contexts/userLoggedInContext'
 import './App.css'
 import Profile from './pages/Profile';
 import UserDataProvider from './contexts/userDataContext';
+import ResetPassword from './components/Auth/ResetPassword'
+import ForgotPassword from './components/Auth/ForgotPassword';
 
 function App() {
   const [user, setUser] = useState(null); // Initialize user state
@@ -35,6 +37,8 @@ function App() {
                   <Route path='/pdfViewer' element={<PdfViewer />} />
                   <Route path='/imageViewer' element={<ImageViewer />} />
                   <Route path='/profile' element={<Profile />} />
+                  <Route path='/reset-password/:token' element={<ResetPassword />} />
+                  <Route path='/forgot-password' element={<ForgotPassword />} />
 
                   {/* ---- Additional routes for admin and user roles ---- */}
                   <Route path='/dashboard/admin' element={<Dashboard user={user} isAdmin={true} />} />

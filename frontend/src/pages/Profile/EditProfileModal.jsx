@@ -1,13 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useHistory for redirection
 
 const EditProfileModal = () => {
+  const [newName, setNewName] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate(); 
+
+  const handleConfirm = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://localhost:3000/api/auth/updateProfile", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          newName,
+          newEmail,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+      setSuccessMessage(data.message); // Set success message from response data
+
+      // Logout and redirect after 3 seconds
+      setTimeout(() => {
+        localStorage.removeItem("token"); // Remove token from localStorage
+        navigate("/login"); // Redirect to login page
+      }, 3000);
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      // Add logic to show error message to the user
+    }
+  };
+
   return (
     <>
       <div className="me-2">
-        {/* ========================
-         Button 1 trigger modal 
-         ======================
-    */}
         <button
           type="button"
           className="btn btn-outline-primary"
@@ -17,7 +48,6 @@ const EditProfileModal = () => {
           Edit Profile
         </button>
 
-        {/* Modal for Edit Profile */}
         <div
           className="modal fade"
           id="editProfileModal"
@@ -52,6 +82,8 @@ const EditProfileModal = () => {
                     type="text"
                     className="ms-4 h-100"
                     placeholder="New Name"
+                    value={newName}
+                    onChange={(e) => setNewName(e.target.value)}
                   />
                 </div>
                 <div
@@ -65,8 +97,16 @@ const EditProfileModal = () => {
                     type="text"
                     className="ms-4 h-100"
                     placeholder="New Email"
+                    value={newEmail}
+                    onChange={(e) => setNewEmail(e.target.value)}
                   />
                 </div>
+                {/* Display success message */}
+                {successMessage && (
+                  <div className="alert alert-success" role="alert">
+                    {successMessage}
+                  </div>
+                )}
                 <div className="form-check mt-3 mx-auto w-50">
                   <input
                     className="form-check-input "
@@ -84,7 +124,11 @@ const EditProfileModal = () => {
                 </div>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-primary">
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={handleConfirm}
+                >
                   Confirm
                 </button>
               </div>
@@ -92,6 +136,7 @@ const EditProfileModal = () => {
           </div>
         </div>
       </div>
+
     </>
   );
 };

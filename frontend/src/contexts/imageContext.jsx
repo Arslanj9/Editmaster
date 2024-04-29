@@ -12,7 +12,6 @@ export const ImageProvider = ({ children }) => {
     setImgData(image);
   };
 
-  console.log(`Inside imgContext ${JSON.stringify(imgData)}`)
 
   return (
     <ImageContext.Provider value={{ imgData, handleImgUpload }}>
