@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(cors(
   {
-    origin: [],
+    origin: ["https://editmaster-livid.vercel.app"],
     methods: ["POST", "GET"],
     credentials: true,
   }
